@@ -1,0 +1,34 @@
+INTEGERS -
+
+INT - 32 bit -2147483648 to 2147483647
+TINYINT - -127 to 128
+SMALLINT  - -32768 to 32767
+MEDIUMINT  - -8388608 to 8388607
+BIGINT - 9223372036854775808 to 9223372036854775807  (20 digits)
+
+Floating Points -
+
+DECIMAL - Original Numaric with out Rounding
+FLOAT  - 10.2 digits
+DOUBLE -16.4
+
+Date & Time -
+
+DATE  - YYYY-MM-DD - 1000-01-01 to 9999-12-31
+DATETIME  - YYYY-MM-DD HH:MM:SS - 1000-01-01 00:00:00 and 9999-12-31 23:59:59
+TIMESTAMP  - YYYYMMDDHHMMSS  January 1st, 1970 to  sometime in 2037
+TIME - HH:MM:SS
+YEAR - 2 digit or 4 digit  if the lenght is 2 - 1970 to 2069 (70 to 69) , if the lenght is 4 1901 to 2155
+
+
+STRINGS -
+
+CHAR - 1- 255 fixed length string
+VARCHAR - 1-255
+BLOB/TEXT - upto 65535 chars , BLOBS are case sensitive, TEXT is not
+TINYBLOB/TINYTEXT - upto 255 chars
+MEDIUMBLOB or MEDIUMTEXT - upto 16777215 chars
+LONGBLOB or LONGTEXT - upto 4294967295  chars
+ENUM -
+
+

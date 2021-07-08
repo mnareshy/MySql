@@ -1,0 +1,11 @@
+
+show databases;
+
+create database emp_db;
+
+use emp_db;
+
+drop database emp_db;
+
+// to know whioch database is in use
+select database();
