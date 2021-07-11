@@ -26,6 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="eea41c90-505e-47f3-9f12-3449dd6ea5b7">
+        <schema name="emp_db" object-types="table, view" />
         <schema name="mysql" object-types="table, view" />
       </connection>
     </loaded-nodes>
@@ -39,7 +40,9 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="eea41c90-505e-47f3-9f12-3449dd6ea5b7" />
+    <connection id="eea41c90-505e-47f3-9f12-3449dd6ea5b7">
+      <session name="Session 1" id="b0019c5a-5a3d-4eab-a1a2-08127cf3c25f" />
+    </connection>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="eea41c90-505e-47f3-9f12-3449dd6ea5b7" dataset="mysql.db" active-filter-id="EMPTY_FILTER" />
@@ -49,6 +52,10 @@
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/src/test.sql" connection-id="eea41c90-505e-47f3-9f12-3449dd6ea5b7" session-id="POOL" current-schema="emp_db" />
+    <mapping file-url="file://$PROJECT_DIR$/src/book_data-DCI.sql" connection-id="eea41c90-505e-47f3-9f12-3449dd6ea5b7" session-id="MAIN" current-schema="emp_db" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
