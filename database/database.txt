@@ -9,3 +9,21 @@ drop database emp_db;
 
 // to know whioch database is in use
 select database();
+
+
+//Tabels
+
+create table emp_table(
+    -> empname Varchar(12),
+    -> emapid int(4)
+    -> );
+
+SHOW tables;
+
+SHOW COLUMNS from emp_table;
+
+DESC emp_table;
+
+DROP table some_table;
+
+

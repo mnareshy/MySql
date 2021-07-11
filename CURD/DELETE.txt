@@ -1,0 +1,28 @@
+----------+--------+------+-------------+
+| emp_name | emp_id | dept | designation |
++----------+--------+------+-------------+
+| chinna   |      2 | xy2  | developer   |
+| sairam   |     12 | xy1  | engineer    |
+| someone  |     14 | xy3  | manager     |
+| someone  |     19 | xy4  | manager     |
+| naresh   |     27 | xy1  | engineer    |
+| raju     |    112 | xy3  | programmer  |
+| somu     |    122 | xy4  | architect   |
+| engineer |    124 | xy1  | engineer    |
++----------+--------+------+-------------+
+
+DELETE  FROM employee WHERE dept='xy4';
+SELECT * FROM employee;
++----------+--------+------+-------------+
+| emp_name | emp_id | dept | designation |
++----------+--------+------+-------------+
+| chinna   |      2 | xy2  | developer   |
+| sairam   |     12 | xy1  | engineer    |
+| someone  |     14 | xy3  | manager     |
+| naresh   |     27 | xy1  | engineer    |
+| raju     |    112 | xy3  | programmer  |
+| engineer |    124 | xy1  | engineer    |
++----------+--------+------+-------------+
+
+DELETE FROM employee;
+// delete all the rows from emplyee table, but will not drop the table.

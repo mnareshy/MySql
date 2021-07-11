@@ -1,0 +1,45 @@
+CREATE TABLE employee(
+emp_name VARCHAR(12),
+emp_id INT(7),
+dept CHAR(4),
+designation VARCHAR(12)
+);
+
+INSERT INTO employee VALUES("sairam", 12, 'xy1', 'engineer');
+INSERT INTO employee VALUES("naresh", 27, 'xy1', 'engineer');
+INSERT INTO employee VALUES("chinna", 2, 'xy2', 'developer');
+INSERT INTO employee VALUES("someone", 14, 'xy3', 'manager');
+INSERT INTO employee VALUES("someone", 19, 'xy4', 'manager');
+INSERT INTO employee VALUES("raju", 112, 'xy3', 'programmer');
+INSERT INTO employee VALUES("engineer", 124, 'xy1', 'engineer');
+INSERT INTO employee VALUES("somu", 122, 'xy4', 'architect');
+
+// ********* WHERE ***********//
+
+SELECT emp_name FROM employee WHERE designation="engineer";
++----------+
+| emp_name |
++----------+
+| sairam   |
+| naresh   |
+| engineer |
++----------+
+
+SELECT * FROM employee WHERE emp_name=designation;
++----------+--------+------+-------------+
+| emp_name | emp_id | dept | designation |
++----------+--------+------+-------------+
+| engineer |    124 | xy1  | engineer    |
++----------+--------+------+-------------+
+
+//Aliase
+
+SELECT emp_name as NAME , emp_id as ID FROM employee;
+
++----------+-----+
+| NAME     | ID  |
++----------+-----+
+| chinna   |   2 |
+| sairam   |  12 |
+
+// ********* WHERE ***********//

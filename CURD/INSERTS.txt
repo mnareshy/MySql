@@ -1,0 +1,168 @@
+
+create table employee
+    (
+    emp_name varchar(12),
+    emp_id int (7),
+    dept char(4)
+    );
+
+
+INSERT into employee(emp_name, emp_id, dept) values("sairam",12,"01");
+
+//Columns Optional if you are filling everything and in sequence
+INSERT into employee values("naresh",14,"02");
+
+// COlumn sequence doesnot matter, but needs to callout
+INSERT into employee(dept,emp_name,emp_id) values("04","raja","112");
+
+//Multiple inserts
+INSERT into employee values("naresh1",141,"02"), ("sairam",1212,"04"), ("baba",1122,"07");
+
+//********** ERRORS and warnings******************//
+
+INSERT INTO employee VALUES("RAJA RAJA BOBBILI RAJA",2224,"12");
+
+ERROR 1406 (22001): Data too long for column 'emp_name' at row 1
+
+//If you happen to encounter an error instead of a warning then
+set sql_mode='';
+
+INSERT INTO employee VALUES("RAJA RAJA BOBBILI RAJA",2224,"12");
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+SHOW WARNINGS;
+
+Warning | 1265 | Data truncated for column 'emp_name' at row 1
+"RAJA RAJA BOBBILI RAJA" is  truncated to RAJA RAJA BO
+
+INSERT INTO employee values("kumar", "12","12");
+Query OK, 1 row affected (0.01 sec)  //  "12" convered into INT
+
+INSERT INTO employee values("kumar", "12abcd","12");
+SHOW WARNINGS;
+Data truncated for column 'emp_id' at row 1// "12abcd" truncated to 12
+
+INSERT INTO employee values("kumar", "abcd","12");
+SHOW WARNINGS;
+Incorrect integer value: 'abcd' for column 'emp_id' at row 1 //"abcd" changed to 0
+
+//********** ERRORS and warnings******************//
+
+
+//***********NOT NULL & DEFAULTS*****************//
+
+CREATE TABLE employee_nnull(
+    emp_name varchar(12) NOT NULL,
+    emp_id int(7) NOT NULL
+    );
+
+
+INSERT INTO employee_nnull(emp_name) VALUES("SAIRAM");
+//ERROR 1364 (HY000): Field 'emp_id' doesn't have a default value
+
+set sql_mode = '';
+INSERT INTO employee_nnull(emp_name) VALUES("SAIRAM"); //Query OK, 1 row affected, 1 warning (0.01 sec)
+
+SHOW WARNINGS;
+//Field 'emp_id' doesn't have a default value  // emp_id is defaulted to 0
+
+INSERT INTO employee_nnull(emp_id) VALUES(12); // Stores Nothing in emp-name
+
+INSERT INTO employee_nnull() VALUES(); // Valid
+
+
+// DEFAULTS
+CREATE TABLE employee_defaults (
+    emp_name VARCHAR(12) DEFAULT 'NO NAME',
+    emp_id INT(7) DEFAULT '12'
+    );
+
+DESC  employee_defaults;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_name | varchar(12) | YES  |     | NO NAME |       |
+| emp_id   | int         | YES  |     | 12      |       |
++----------+-------------+------+-----+---------+-------+
+
+INSERT INTO employee_defaults() VALUES();
++----------+--------+
+| emp_name | emp_id |
++----------+--------+
+| NO NAME  |     12 |
++----------+--------+
+
+
+// DEFAULTS With Nulls
+
+CREATE TABLE employee_nnull_defaults(
+    -> emp_name VARCHAR(12) NOT NULL DEFAULT 'NO NAME BRO^S'
+    -> , emp_id INT(7) NOT NULL DEFAULT '8'
+    -> );
+
+DESC employee_nnull_defaults;
++----------+-------------+------+-----+--------------+-------+
+| Field    | Type        | Null | Key | Default      | Extra |
++----------+-------------+------+-----+--------------+-------+
+| emp_name | varchar(12) | NO   |     | NO NAME BRO‼ |       |
+| emp_id   | int         | NO   |     | 8            |       |
++----------+-------------+------+-----+--------------+-------+
+
+INSERT INTO employee_nnull_defaults VALUES("HAVE NAME",NULL);
+//ERROR 1048 (23000): Column 'emp_id' cannot be null
+//***********NOT NULL & DEFAULTS*****************//
+
+
+//***********PRIMARY KEY & AUTO INCREMENT****************//
+
+ // Primary Key
+
+ CREATE TABLE employee_pkey (
+    -> emp_name VARCHAR(12) NOT NULL,
+    -> emp_id INT(7) NOT NULL,
+    -> PRIMARY KEY(emp_id)
+    -> );
+
+ DESC employee_pkey
+
+ +----------+-------------+------+-----+---------+-------+
+ | Field    | Type        | Null | Key | Default | Extra |
+ +----------+-------------+------+-----+---------+-------+
+ | emp_name | varchar(12) | NO   |     | NULL    |       |
+ | emp_id   | int         | NO   | PRI | NULL    |       |
+ +----------+-------------+------+-----+---------+-------+
+
+INSERT INTO employee_pkey VALUES("BOBBILI", 12);
+INSERT INTO employee_pkey VALUES("BOBBILI", 12);
+//ERROR 1062 (23000): Duplicate entry '12' for key 'employee_pkey.PRIMARY'
+
+// AUTO INCREMENT
+
+CREATE TABLE employee_pkey_ainc (
+    emp_name VARCHAR(12) NOT NULL ,
+    emp_id INT(7) NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY(emp_id)
+    );
+
+ DESC employee_pkey_ainc;
+ +----------+-------------+------+-----+---------+----------------+
+ | Field    | Type        | Null | Key | Default | Extra          |
+ +----------+-------------+------+-----+---------+----------------+
+ | emp_name | varchar(12) | NO   |     | NULL    |                |
+ | emp_id   | int         | NO   | PRI | NULL    | auto_increment |
+ +----------+-------------+------+-----+---------+----------------+
+
+ INSERT INTO employee_pkey_ainc(emp_name,emp_id) VALUES("BOBBILI",12);
+ INSERT INTO employee_pkey_ainc(emp_name) VALUES("BOBBILI");
+
+ +----------+--------+
+ | emp_name | emp_id |
+ +----------+--------+
+ | BOBBILI  |     12 |
+ | BOBBILI  |     13 |
+ +----------+--------+
+
+
+//***********PRIMARY KEY & AUTO INCREMENT****************//
+
+
