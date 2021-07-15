@@ -1,0 +1,15 @@
+SELECT CONCAT(author_fname," ", author_lname) as NAME from books;
+SELECT CONCAT_WS("-",author_fname, author_lname) as NAME from books;
+SELECT SUBSTRING(title, 1, 12) from books;
+SELECT SUBSTRING(title,12) from books;
+SELECT SUBSTRING(title, -12) from books;
+SELECT CONCAT (SUBSTRING(title, 1, 12), "...") AS "SHORT TITLE" from books;
+
+SELECT REPLACE(title," ", "****") from books;
+
+SELECT pages, REVERSE(pages)  from books;
+
+SELECT title, CHAR_LENGTH(title) LNGHT from books;
+
+SELECT LOWER(author_fname) as "FIRST NAME", UPPER(author_lname) as "last name" from BOOKS;
+

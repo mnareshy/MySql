@@ -26,7 +26,6 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="eea41c90-505e-47f3-9f12-3449dd6ea5b7">
-        <schema name="emp_db" object-types="table, view" />
         <schema name="mysql" object-types="table, view" />
       </connection>
     </loaded-nodes>

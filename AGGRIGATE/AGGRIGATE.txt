@@ -1,0 +1,99 @@
+//**********COUNT************//
+
+
+SELECT COUNT(*) FROM books;
+SELECT COUNT(titles) FROM books;
+
+//SELECT UNIQUW AUTHORS
+SELECT COUNT(DISTINCT author_fname) FROM books;
+
+//SELECT DISTINCT COUNT(author_fname) FROM books;  does not give UNIQUe AUTHORS
+SELECT COUNT(DISTINCT author_lname,author_fname) FROM books;
+
+SELECT COUNT(*) FROM books WHERE title LIKE "the%";
+
+//**********COUNT************//
+
+
+//*************GROUP BY****************//
+
+SELECT COUNT(*) from BOOKS;
++----------+
+| COUNT(*) |
++----------+
+|       35 |
++----------+
+
+SELECT COUNT(DISTINCT author_lname, author_fname) from books;
++--------------------------------------------+
+| COUNT(DISTINCT author_lname, author_fname) |
++--------------------------------------------+
+|                                         12 |
++--------------------------------------------+
+
+SELECT CONCAT_WS(" ",author_fname,author_lname),COUNT(title) FROM books GROUP BY author_lname;
++------------------------------------------+--------------+
+| CONCAT_WS(" ",author_fname,author_lname) | COUNT(title) |
++------------------------------------------+--------------+
+| Jhumpa Lahiri                            |            4 |
+| Neil Gaiman                              |            6 |
+| Dave Eggers                              |            6 |
+| Michael Chabon                           |            2 |
+| Patti Smith                              |            2 |
+| Raymond Carver                           |            4 |
+| Don DeLillo                              |            2 |
+| John Steinbeck                           |            2 |
+| David Foster Wallace                     |            4 |
+| Dan Harris                               |            2 |
+| George Saunders                          |            1 |
++------------------------------------------+--------------+
+
+SELECT CONCAT_WS(" ",author_fname,author_lname),COUNT(title) FROM books GROUP BY author_lname,author_fname;
++------------------------------------------+--------------+
+| CONCAT_WS(" ",author_fname,author_lname) | COUNT(title) |
++------------------------------------------+--------------+
+| Jhumpa Lahiri                            |            4 |
+| Neil Gaiman                              |            6 |
+| Dave Eggers                              |            6 |
+| Michael Chabon                           |            2 |
+| Patti Smith                              |            2 |
+| Raymond Carver                           |            4 |
+| Don DeLillo                              |            2 |
+| John Steinbeck                           |            2 |
+| David Foster Wallace                     |            4 |
+| Dan Harris                               |            1 |
+| Freida Harris                            |            1 |
+| George Saunders                          |            1 |
++------------------------------------------+--------------+
+
+
+//*************GROUP BY****************//
+
+//*******************MIN / MAX **************************//
+
+SELECT MIN(released_year) FROM books;
+SELECT MAX(pages) FROM books;
+
+//find the author/title for the longest pages book
+SELECT title, author_fname, MAX(pages) FROM books; // THis gives you wrong results - title, author_fname, MAX(pages) are taken indepandantly
+
+//SOLUTION USING SUB QUERY - this works   but executes 2 queries
+SELECT title as TITLE , author_fname as NAME , pages as PAGES FROM books WHERE pages = (SELECT MAX(pages) FROM books);
+// SOLUTION 2
+SELECT title as TITLE , author_fname as NAME , pages as PAGES FROM books ORDER BY pages DESC LIMIT 1;
+
+// SELECT MAX pages BOOK FROM EACH OTHER
+SELECT CONCAT_WS(" ",author_fname,author_lname) as NAME , COUNT(DISTINCT title) AS NO_BOOKS,MAX(pages) as MAX_PAGES, MIN(pages) AS MIN_PAGES
+                                                                                    FROM books GROUP BY author_lname,author_fname ORDER BY 2;
+
+//*******************MIN / MAX **************************//
+
+//*****************SUM***********************************//
+SELECT CONCAT(author_lname," ", author_fname) AS NAME, SUM(pages), AVG(pages) FROM books GROUP BY author_lname, author_fname;
+
+
+//*****************SUM***********************************//
+
+//**********************AVG**************************************//
+SELECT CONCAT(author_lname," ", author_fname) AS NAME, AVG(pages), MAX(pages) FROM books GROUP BY author_lname, author_fname;
+//**********************AVG**************************************//

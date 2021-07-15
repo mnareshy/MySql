@@ -43,3 +43,52 @@ SELECT emp_name as NAME , emp_id as ID FROM employee;
 | sairam   |  12 |
 
 // ********* WHERE ***********//
+
+
+//******* DISTINCT **********//
+
+// to get UNIQUE titles
+SELECT DISTINCT title from books;
+
+SELECT DISTINCT  UPPER(CONCAT(author_fname,' ',author_lname)) as "NAME" FROM books;
+SELECT DISTINCT  author_fname,author_lname FROM books;
+
+
+//******* DISTINCT **********//
+
+//********* ORDER BY - SORTING THE DATA*********//
+SELECT title FROM books ORDER BY title;
+
+//for descending order
+SELECT title FROM books ORDER BY title DESC;
+
+// SELECT  some column  by sorting some other
+SELECT title FROM books ORDER BY released_year;
+
+// USE INDEX of SELECTED COLUMN
+SELECT title,pages,released_year FROM books ORDER BY 2;
+
+// first sort by last name and then sort by first name
+SELECT author_fname, author_lname FROM books ORDER BY 2,1;
+
+//********* ORDER BY *********//
+
+//***********LIMIT***************//
+
+SELECT title FROM books ORDER BY released_year LIMIT 2;
+
+//LIMIT 2,1 says start from 2 and LIMIT to 1
+SELECT title FROM books ORDER BY released_year LIMIT 2,1;
+
+// to get entire list starting from some record, use a gigantic number
+
+SELECT title FROM books ORDER BY released_year LIMIT 2,143423123123;
+
+//***********LIMIT***************//
+
+//**************LIKE*****************//
+SELECT title FROM books WHERE title LIKE "%NA%";
+SELECT title FROM books WHERE title LIKE "_A%";
+SELECT title FROM books WHERE title LIKE "the%";
+
+//**************LIKE*****************//
