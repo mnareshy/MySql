@@ -16,9 +16,53 @@ Date & Time -
 
 DATE  - YYYY-MM-DD - 1000-01-01 to 9999-12-31
 DATETIME  - YYYY-MM-DD HH:MM:SS - 1000-01-01 00:00:00 and 9999-12-31 23:59:59
-TIMESTAMP  - YYYYMMDDHHMMSS  January 1st, 1970 to  sometime in 2037
+TIMESTAMP  - YYYYMMDDHHMMSS  January 1st, 1970 to  sometime in 2038-01-19
 TIME - HH:MM:SS
 YEAR - 2 digit or 4 digit  if the lenght is 2 - 1970 to 2069 (70 to 69) , if the lenght is 4 1901 to 2155
+
+
+//************* Date & Time ***************//
+
+CREATE TABLE date_table(name VARCHAR(20) , date DATE, time TIME, datetime DATETIME);
+//FUNCTIONS TO GET CURRENT DATE AND TIME
+INSERT INTO date_table VALUES("SOMEONE", CURRENTDATE(), CURRENTTIME(),NOW());
+INSERT INTO date_table VALUES("NARESH", '1982-11-12', CURTIME(),NOW());
+
+//DAY() , DAYNAME() , DAYOFWEEK(), DAYOFYEAR(), MONTH(), YEAR(),  MONTHNAME()
+SELECT name, DAYNAME(date) FROM date_table;
++------------+---------------+
+| name       | DAYNAME(date) |
++------------+---------------+
+| SOMEONE    | Monday        |
+
+// DATE_FORMAT - %d, %D, %w, %W, %y, %Y, %h
+SELECT DATE_FORMAT(date , "%D %W %Y, %d\%w\%y") FROM date_table;
++------------------------------------------+
+| DATE_FORMAT(date , "%D %W %Y, %d\%m\%y") |
++------------------------------------------+
+| 12th Friday 1982, 12\11\82               |
+
+
+//DATE_DIFF, DATE_ADD, DATE_SUB, +/-
+
+SELECT DATEDIFF(NOW(), date) FROM date_table ;
+SELECT YEAR(NOW())-YEAR( date) FROM date_table ;
+
+SELECT name,date, DATE_ADD(date, INTERVAL 1 MONTH) FROM date_table;
+SELECT name,date,date + INTERVAL 1 MONTH + INTERVAL 1 YEAR + INTERVAL 1 DAY FROM date_table;
++------------+------------+------------------------------------------------------------+
+| name       | date       | date + INTERVAL 1 MONTH + INTERVAL 1 YEAR + INTERVAL 1 DAY |
++------------+------------+------------------------------------------------------------+
+| SOMEONE    | 2021-07-19 | 2022-08-20                                                 |
+
+
+
+
+
+
+
+
+//************* Date & Time ***************//
 
 
 STRINGS -
