@@ -1,0 +1,56 @@
+CREATE TABLE movies_jsaon(
+id INT,
+title VARCHAR(100),
+details JSON,
+PRIMARY KEY(details)
+);
+
+//ERROR 3152 (42000): JSON column 'details' supports indexing only via generated columns on a specified JSON path.
+
+CREATE TABLE movies_json(
+id INT AUTO_INCREMENT,
+title VARCHAR(100),
+details JSON,
+PRIMARY KEY(id)
+);
+
+
+
+INSERT INTO movies_json(title,details) VALUES
+("Intersteller",'{"director":"Christopher Nolan",
+                    "year":"2014",
+                    "genre":"SCI-FI",
+                    "producers":["Emma Thomas", "Christopher Nolan" ,"Lynda Obst"]}'),
+("Bahubali1",'{"director":"Raja Mouly SS",
+                    "year":"2015",
+                    "genre":"Fantasy",
+                    "producers":["Shobu Yarlagadda", "Prasad Devineni"]}'),
+("V",'{"director":"Mohana Krishna Indraganti",
+                    "year":"2020",
+                    "genre":"drama",
+                    "producers":["Dil Raju", "Sirish" ,"Lakshman","Harshith Reddy"]}'),
+("Jersey",'{"director":"Gowtam Tinnanuri",
+                    "year":"2019",
+                    "genre":"drama",
+                    "producers":["Suryadevara Naga Vamsi"]}');
+
+
+SELECT title,details FROM movies_json;
+
+SELECT title,JSON_PRETTY(details) FROM movies_json;
+
+SElECT title, JSON_EXTRACT(details,"$.producers") as produces FROM movies_json;
+
+SElECT title, details->>"$.producers" as produces FROM movies_json;
+
+SELECT JSON_ARRAY("one", "two"), JSON_TYPE(details),JSON_OBJECT("key1","value1","key2","value2") FROM movies_json;
+
+// PATCH , PRESERVE
+
+SELECT JSON_MERGE_PATCH('{"genre":"drams"}','{"genre":"drams"}');
+SELECT JSON_MERGE_PRESERVE('{"genre":"drams"}','{"genre":"drams"}');
+
+
+// UPDATE
+// WHICH will only give modified resulst where there will be no change in the table
+SELECT JSON_SET(details,"$.genre", "drama1") FROM movies_json WHERE details->>"$.genre" = "drama";

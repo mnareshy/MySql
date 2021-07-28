@@ -1,0 +1,24 @@
+CREATE TABLE shows(
+id INT,
+title VARCHAR(100),
+released_year YEAR(4),
+genre VARCHAR(100),
+PRIMARY KEY(id)
+);
+
+INSERT INTO shows VALUES
+(1,"BigBoss",2020,"reality show"),(2,"DHEE",2014,"dance show"),(3,"sam jam",2021,"talk show"),(4,"Breaking BAD",2014,"TV SHOW");
+
+// UNITE FROM MULTIPLE TABLES
+
+SELECT *,"MOVIE" AS type FROM movies
+UNION
+SELECT *,"SHOW" AS type FROM shows;
+
+SELECT *,"MOVIE" AS type FROM movies
+UNION DISTINCT
+SELECT *,"SHOW" AS type FROM shows;
+
+SELECT  * FROM  meta_data a, meta_data b
+WHERE
+a.post_id = b.post_id ;

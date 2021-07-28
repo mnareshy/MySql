@@ -1,0 +1,53 @@
+//************** !=, NOT LIKE, >,>=,<,<=, AND , OR ************************//
+SELECT * FROM books WHERE author_lname != "LAHIRI";
+SELECT * FROM books WHERE released_year != 2017;
+
+SELECT * FROM books WHERE released_year NOT LIKE "2%";
+
+SELECT * FROM books WHERE released_year >= 2004;
+
+SELECT 'Q' <= 'q';
+
+SELECT * FROM books WHERE released_year < 2004 AND author_lname != "LAHIRI";
+
+SELECT * FROM books WHERE released_year < 2004 OR pages <= 350;
+
+SELECT * FROM books WHERE released_year < 2004 OR title NOT LIKE "L%";
+
+//************** !=, NOT LIKE, >,>=,<,<=, AND , OR ************************//
+
+//************* BETWEEN, IN, NOT IN **************************************//
+
+ SELECT * FROM books WHERE released_year BETWEEN 2014 AND 2020;
+
+// WHILE PLAING WITH DATE ENSURE CAST()
+SELECT * FROM date_table WHERE datetime BETWEEN CAST("2020-07-19" AS DATETIME) AND CAST("2022-07-17" AS DATETIME);
+
+SELECT * FROM books WHERE released_year IN (2000,2003,2017,2020);
+
+SELECT * FROM books WHERE released_year NOT IN (2000,2017,2020);
+
+
+//************* BETWEEN, IN, NOT IN **************************************//
+
+
+//**********************CASE*********************************//
+
+
+SELECT title, CONCAT_WS(" ",author_fname,author_lname) AS author, released_year,
+    CASE
+    WHEN released_year < 2000 THEN "OLD MOVIE"
+    ELSE "NEW MOVIE"
+    END
+    FROM books ORDER BY 4;
+
+
+ //IF The CONDITON is only ONE , IF CONDION LOOKS BETTER
+SELECT title, CONCAT_WS(" ",author_fname,author_lname) AS author, released_year,
+    IF(released_year < 2000,"OLD MOVIE", "NEW MOVIE") AS genre
+    FROM books ORDER BY 4;
+
+
+
+//**********************CASE*********************************//
+

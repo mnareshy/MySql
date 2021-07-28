@@ -15,8 +15,8 @@ DOUBLE -16.4
 Date & Time -
 
 DATE  - YYYY-MM-DD - 1000-01-01 to 9999-12-31
-DATETIME  - YYYY-MM-DD HH:MM:SS - 1000-01-01 00:00:00 and 9999-12-31 23:59:59
-TIMESTAMP  - YYYYMMDDHHMMSS  January 1st, 1970 to  sometime in 2038-01-19
+DATETIME  - YYYY-MM-DD HH:MM:SS - 1000-01-01 00:00:00 and 9999-12-31 23:59:59 - 8 BYTES
+TIMESTAMP  - YYYYMMDDHHMMSS  January 1st, 1970 to  sometime in 2038-01-19 - OCCUPIES LESS MEMORY - 4 bytes
 TIME - HH:MM:SS
 YEAR - 2 digit or 4 digit  if the lenght is 2 - 1970 to 2069 (70 to 69) , if the lenght is 4 1901 to 2155
 
@@ -56,9 +56,24 @@ SELECT name,date,date + INTERVAL 1 MONTH + INTERVAL 1 YEAR + INTERVAL 1 DAY FROM
 | SOMEONE    | 2021-07-19 | 2022-08-20                                                 |
 
 
+//TIMESTAMP
+CREATE TABLE timestampcheck (name VARCHAR(20), regtime TIMESTAMP DEFAULT NOW());
+INSERT INTO timestampcheck(name) VALUES("SAIRAM");
 
+ALTER TABLE timestampcheck CHANGE COLUMN regtime regtime TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+INSERT INTO timestampcheck(name) VALUES("VENKY");
++--------+---------------------+
+| name   | regtime             |
++--------+---------------------+
+| VENKY  | NULL                |
++--------+---------------------+
 
-
+UPDATE timestampchek SET name="VENKY MAMA" WHERE name="VENKY";
++------------+---------------------+
+| name       | regtime             |
++------------+---------------------+
+| VENKY MAMA | 2021-07-19 11:52:08 |
++------------+---------------------+
 
 
 

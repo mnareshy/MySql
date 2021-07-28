@@ -1,0 +1,17 @@
+// Views are Virtual Tables Created out of Queries, They are updated as original Table updates .
+//You can update VIEWS which will update the Tables but with some constraints.
+
+CREATE VIEW genre_rating AS
+SELECT genre,ROUND(AVG(rating),2) FROM movies LEFT JOIN reviews ON movies.id = reviews.movie_id GROUP BY 1;
+
+SELECT * FROM genre_rating;
+
+
+ALTER VIEW genre_rating AS
+SELECT genre,ROUND(AVG(rating),2) AS avg_rating FROM movies LEFT JOIN reviews ON movies.id = reviews.movie_id GROUP BY 1;
+
+SELECT * FROM genre_rating WHERE avg_rating > 9;
+
+
+// UPDATABLE VIEWS  CANNOT INCLUDE - AGGREGATE FUNCTIONS, GROUP BY, HAVING, UNION,DISTINCT, LEFT RIGHT JOINS, SUB QUERIES
+
