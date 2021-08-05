@@ -1,0 +1,53 @@
+
+
+CREATE TABLE employee_12 ( id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(20), age INT,joining_date TIMESTAMP DEFAULT NOW());
+
+DELIMITER $
+CREATE TRIGGER employee_age_tigger
+    BEFORE INSERT ON employee_12 FOR EACH ROW
+    BEGIN
+        IF NEW.age < 22
+            THEN
+                SIGNAL SQLSTATE '54000'
+                SET MESSAGE_TEXT = "minimum employment age is 22";
+        END IF;
+    END;
+
+$
+
+DELIMITER ;
+
+
+INSERT INTO employee_12(name,age) VALUES ("sairam","1000000");
+INSERT INTO employee_12(name,age) VALUES ("sairam","20");
+//ERROR 1644 (54000): minimum employment age is 22
+
+//DROP TRIGGER employee_resign_tigger
+
+
+CREATE TABLE employee_audit(id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(20), age INT,resigned_date TIMESTAMP DEFAULT NOW());
+
+DELIMITER $
+CREATE TRIGGER employee_resign_tigger
+    AFTER DELETE ON employee_12 FOR EACH ROW
+    BEGIN
+        INSERT INTO employee_audit
+            SET
+            name = OLD.name,
+            age  = OLD.age;
+
+    END;
+
+$
+
+DELIMITER ;
+
+
+// INSERT INTO employee_12(name,age) VALUES (OLD.name,OLD.age); can also be used
+
+INSERT INTO employee_12(name,age) VALUES ("naresh","39");
+INSERT INTO employee_12(name,age) VALUES ("bobbili","41");
+
+DELETE FROM employee_12 WHERE name = "bobbili";
+
+SELECT * FROM employee_audit;

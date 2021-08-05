@@ -1,0 +1,44 @@
+// Find the 5 oldest USERS
+
+SELECT username,created_at FROM users ORDER BY created_at LIMIT 5;
+
+// What day of week most users registered on
+
+SELECT COUNT(*), DAYNAME(created_at) FROM users GROUP BY 2 ORDER BY 1 DESC LIMIT 1;
+SELECT COUNT(*) as count, DAYNAME(created_at) FROM users GROUP BY DAYNAME(created_at) HAVING COUNT(*) = (SELECT COUNT(*) FROM users GROUP BY DAYNAME(created_at) ORDER BY 1 DESC LIMIT 1);
+
+
+// Find users who have never posted a photo
+SELECT username,image_url FROM users LEFT JOIN photos ON users.id = user_id WHERE image_url IS  NULL;
+
+//What is single most liked photo
+
+SELECT username,image_url,photo_id,likes.user_id,COUNT(*) AS total FROM photos
+ LEFT JOIN likes ON id = photo_id
+ LEFT JOIN users ON users.id = photos.user_id
+ GROUP BY photo_id ORDER BY total DESC LIMIT 4;
+
+// Calculate Average Of photos per user
+
+SELECT username,COUNT(photos.id) FROM users JOIN photos ON users.id = photos.user_id GROUP By username; // number of photos per user
+SELECT (SELECT COUNT(*) FROM photos)/(SELECT COUNT(*) FROM users);
+
+// What are top 5 most commonly used hashtags
+
+SELECT photo_tags.tag_id,COUNT(photo_tags.tag_id) as total,tags.tag_name, photo_tags.photo_id FROM photo_tags
+        JOIN tags ON tags.id = photo_tags.tag_id
+        GROUP BY tags.tag_name
+        ORDER BY total DESC LIMIT 7;
+
+//Find the users who liked all the photos
+
+SELECT username , COUNT(likes.user_id) as likes FROM users
+    INNER JOIN likes WHERE users.id = likes.user_id
+    GROUP BY username
+    HAVING likes  = (SELECT COUNT(*) FROM photos);
+
+SELECT username , COUNT(likes.user_id) as likes FROM users
+    INNER JOIN likes WHERE users.id = likes.user_id
+    GROUP BY username
+    HAVING likes  =  (SELECT COUNT(*) FROM photos) AND ((SELECT COUNT(*) FROM photos)-1);
+
